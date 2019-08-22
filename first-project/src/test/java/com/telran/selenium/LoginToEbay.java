@@ -20,7 +20,7 @@ public class LoginToEbay extends TestBase{
         driver.findElement(By.id("pass")).clear();
         driver.findElement(By.id("pass")).sendKeys("12345");
         click(By.id("sgnBt"));
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
     }
 
