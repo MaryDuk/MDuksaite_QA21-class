@@ -21,8 +21,12 @@ public class OpenGoogleTest extends TestBase{
         Thread.sleep(5000);
     }
     @Test
-    public void clickImFeelingLuckyButton (){
+    public void clickImFeelingLuckyButton () throws InterruptedException {
        //new Actions(driver).moveToElement(driver.findElement(By.name("btnI"))).pause(2).click().perform();
+        driver.get("https://www.google.com");
+        driver.findElement(By.xpath("//div[@class='FPdoLc VlcLAe']//input[@name='btnI']")).click();
+        Thread.sleep(5000);
+
     }
 
 }
