@@ -13,18 +13,19 @@ import java.util.concurrent.TimeUnit;
 public class OpenGoogleTest extends TestBase{
     @Test
     public void searchJavaTest () throws InterruptedException {
-        driver.get("https://www.google.com");
-        driver.findElement(By.name("q")).click();
-        driver.findElement(By.name("q")).clear();
-        driver.findElement(By.name("q")).sendKeys("java" + Keys.ENTER);
+        openSite("https://www.google.com");
+        type (By.name("q"), "java" + Keys.ENTER);
+        //click(By.name("q"));
+       // driver.findElement(By.name("q")).clear();
+       // driver.findElement(By.name("q")).sendKeys("java" + Keys.ENTER);
         //driver.navigate().to();
         Thread.sleep(5000);
     }
     @Test
     public void clickImFeelingLuckyButton () throws InterruptedException {
        //new Actions(driver).moveToElement(driver.findElement(By.name("btnI"))).pause(2).click().perform();
-        driver.get("https://www.google.com");
-        driver.findElement(By.xpath("//div[@class='FPdoLc VlcLAe']//input[@name='btnI']")).click();
+        openSite("https://www.google.com");
+        click(By.xpath("//div[@class='FPdoLc VlcLAe']//input[@name='btnI']"));
         Thread.sleep(5000);
 
     }

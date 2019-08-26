@@ -8,24 +8,18 @@ public class LoginToEbay extends TestBase{
     @Test
 
     public void logInTest () throws InterruptedException {
-        driver.get("https://ebay.com");
+        // open web
+        openSite("https://ebay.com");
+        // init login
+        initLogin();
 
-        click(By.id("gh-ug"));
+        //fill Login form
+        fillLoginForm("asdfghh@gmsdgkj.com", "12345");
 
-        click(By.id("userid"));
-        driver.findElement(By.id("userid")).clear();
-        driver.findElement(By.id("userid")).sendKeys("asdfghh");
 
-        click(By.id("pass"));
-        driver.findElement(By.id("pass")).clear();
-        driver.findElement(By.id("pass")).sendKeys("12345");
-        click(By.id("sgnBt"));
+        clickLoginButton(); // click Login button
         Thread.sleep(2000);
 
-    }
-
-    public void click(By locator) {
-        driver.findElement(locator).click();
     }
 
 }
