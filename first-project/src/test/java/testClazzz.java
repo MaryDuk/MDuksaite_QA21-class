@@ -1,6 +1,8 @@
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class testClazzz {
@@ -14,9 +16,10 @@ public class testClazzz {
     };
 
     @Test
-    public void test (){
+    public void test () throws InterruptedException {
         largest(array1);
-        largestInTable(table);
+        int [] res = largestInTable(table);
+        System.out.println(Arrays.toString(res));
     }
 
     public int largest(int array[]){
@@ -33,17 +36,16 @@ public class testClazzz {
     }
     public int [] largestInTable(int[][] table) {
         int maxVal = table [0][0];
-       // int indexOfColWithMaxVal = 0;
         int[] theIndOfMaxValColRow = new int[2];
         for (int row=0; row<table.length; row++) {
             for (int col=0; col<table[row].length; col++){
                 if(table[row][col] > maxVal)
                 {
                     maxVal = table[row][col];
-                   // indexOfColWithMaxVal = col;
+                    theIndOfMaxValColRow[0] = row;
                     theIndOfMaxValColRow[1] = col;
                 }
-            }theIndOfMaxValColRow[0] = row;
+            }
         }
 
         return theIndOfMaxValColRow;
