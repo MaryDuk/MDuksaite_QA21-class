@@ -17,20 +17,17 @@ public class testClazzz {
     int array1[] = new int [] {4,3,5,7,11,10,1,2,6};
     int length = array1.length;
     List<Integer> list1 =  Arrays.asList(4,3,5,7,11,10,1,2,6);
-    List<Integer> list2 =  Arrays.asList(4,8,5,7,13,10,1,2,0);
-    List<Integer> list3 =  Arrays.asList(4,0,5,7,19,10,1,2,6);
-    List<Integer> list4 =  Arrays.asList(1,3,0,7,19,10,1,7,6);
     List<List<Integer>> listTable = new ArrayList<>();
+    List <Object[]> list = new ArrayList<>();
     int[][] table = new int[][]{
         { 4,3,5,7,13,10,1,2,6 },
         { 4,1,5,7,6,10,1,2,0 },
         { 16,13,5,7,11,10,20,2,6 }
     };
 
-    @DataProvider
-    public Object[] validListTableFromCsv() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/table.csv")));
+    public List<List<Integer>> getListTableFromCsv() throws IOException {
         List<List<Integer>> listTable = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/table.csv")));
         String line = reader.readLine();
         while (line!=null){
             List<Integer> list = new ArrayList<>();
@@ -41,16 +38,59 @@ public class testClazzz {
             listTable.add(list);
             line = reader.readLine();
         }
-        return listTable.toArray();
+        return listTable;
     }
-    @Test(dataProvider = "validListTableFromCsv")
-    public void test(List<List<Integer>> listTable) throws InterruptedException {
-       Integer test = listTable.get(0).get(0);
+
+    public Integer[][] getArrayFromList(List<List<Integer>> list){
+        Integer[][] array = new Integer[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            List<Integer> row = list.get(i);
+            array[i] = row.toArray(new Integer[row.size()]);
+        }
+        return array;
     }
+
+    @DataProvider
+    public Iterator<Object[]>validListTableFromCsv2() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/table.csv")));
+        //List <Object[]> list = new ArrayList<>();
+        String line = reader.readLine();
+        while (line!=null){
+            TestData1 testData = new TestData1();
+            String[] values = line.split(",");
+                list.add(new Object[]{
+                        testData.setNum1(values[0]).setNum2(values[1]).setNum3(values[2]).setNum4(values[3]).setNum5(values[4]).setNum6(values[5]).setNum7(values[6])
+                });
+                line = reader.readLine();
+        }
+        return list.iterator();
+    }
+    @Test
+    public void testTable() throws IOException {
+      List<List<Integer>> table = getListTableFromCsv();
+      Integer maxVal = table.get(0).get(0);
+      Integer indexOfMaxValue = 0;
+      for(int row = 0;row < table.size(); row++){
+          for(int col = 0;col < table.get(row).size(); col++){
+              if(table.get(row).get(col) > maxVal)
+              {
+                  maxVal = table.get(row).get(col);
+                  indexOfMaxValue = col + (table.get(row).size()*row);
+              }
+      }
+      } System.out.println("Total index of Max value : " + indexOfMaxValue);
+    }
+
+//    @Test(dataProvider = "validListTableFromCsv2")
+//    public void testCsv () throws InterruptedException {
+//
+//
+//    }
 
     @Test
     public void test () throws InterruptedException {
-        largest(array1);
+        int indOfMax= largest(array1);
+        System.out.println(indOfMax);
         int [] res = largestInTable(table);
         System.out.println(Arrays.toString(res));
 
